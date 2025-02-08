@@ -1,5 +1,8 @@
-import React from 'react'
+// import React from 'react'
 import ComponentA from './ComponentA'
+export interface appprops{
+  name:string
+}
 
 const App = () => {
   const name = 'karthik'

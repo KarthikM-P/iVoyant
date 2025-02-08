@@ -1,7 +1,7 @@
 import React from 'react'
 import ComponentC from './ComponentC'
-
-const ComponentB = ({name}) => {
+import { appprops } from './App'
+const ComponentB:React.FC<appprops> = ({name}) => {
   return (
     <div>
         <ComponentC name = {name}/>

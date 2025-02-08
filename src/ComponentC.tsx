@@ -1,9 +1,10 @@
 import React from 'react'
-
-const ComponentC = ({name}) => {
+import { appprops } from './App'
+import ComponentD from './ComponentD'
+const ComponentC:React.FC<appprops> = ({name}) => {
   return (
     <div>
-        <ComponentC/>
+        <ComponentD name = {name}/>
     </div>
   )
 }

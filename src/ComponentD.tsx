@@ -1,6 +1,7 @@
 import React from 'react'
+import { appprops } from './App'
 
-const ComponentD = ({name}) => {
+const ComponentD:React.FC<appprops>= ({name}) => {
   return (
     <div>
         <h1>Hello {name}</h1>

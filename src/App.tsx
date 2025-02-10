@@ -7,7 +7,6 @@ export type Users = {
   name: string
   age: number
   address: string
-  user?: string
 }
 
 const personaldetail:Users = {

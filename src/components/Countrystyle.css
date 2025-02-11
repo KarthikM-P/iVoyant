@@ -1,0 +1,29 @@
+.country-detail {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.country-detail img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 4px;
+}
+
+.country-detail button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.country-detail button:hover {
+    background-color: #0056b3;
+}

@@ -14,13 +14,39 @@ const App = () => {
     const [cell, setCell] = useState({ rowIndex: null, columnId: null });
     const [data, setData] = useState(datas);
     const [columnOrder, setColumnOrder] = useState(allKeys); 
+    const [pinnedColumns, setPinnedColumns] = useState({ left: [], right: [] });
+    const [openDropdownId, setOpenDropdownId] = useState();
 
-    
     const columns = useMemo(() =>
         columnOrder.map((key) =>
             columnHelper.accessor(key, {
                 id: key,
-                header: () => <DraggableColumnHeader id={key} label={key} />,
+                header: () => (
+                    <div className="header-container">
+                        <DraggableColumnHeader id={key} label={key} />
+                        <div className="header-actions">
+                            <button 
+                                className="dots-button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setOpenDropdownId(prev => prev === key ? null : key);
+                                }}
+                            >
+                                ⋮
+                            </button>
+                            {openDropdownId === key && (
+                                <div className="dropdown-menu">
+                                    <button onClick={() => pinColumn(key, "left")}>⬅️</button>
+                                    <button onClick={() => pinColumn(key, "right")}>➡️</button>
+                                    <button onClick={() => pinColumn(key, "none")}>❌</button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                ),
+
+                
+
                 cell: ({ getValue, row }) => {
                     const isEditing = cell.rowIndex === row.index && cell.columnId === key;
                     return isEditing ? (
@@ -38,7 +64,7 @@ const App = () => {
                     );
                 },
             })
-        ), [columnOrder, cell, data] 
+        ), [columnOrder, cell, data,openDropdownId] 
     );
 
     const handleEdit = (rowIndex, columnId, newValue) => {
@@ -61,6 +87,23 @@ const App = () => {
             setColumnOrder(updatedColumnOrder);
         }
     };
+    const pinColumn = (columnId, position) => {
+        setPinnedColumns((prev) => {
+            let newPinned = { left: [...prev.left], right: [...prev.right] };
+
+            // Remove column from both left and right before reassigning
+            newPinned.left = newPinned.left.filter(col => col !== columnId);
+            newPinned.right = newPinned.right.filter(col => col !== columnId);
+
+            if (position === "left") {
+                newPinned.left.push(columnId);
+            } else if (position === "right") {
+                newPinned.right.push(columnId);
+            }
+
+            return newPinned;
+        });
+    };
 
     const table = useReactTable({
         data,
@@ -68,7 +111,8 @@ const App = () => {
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         state: {
-        globalFilter: searchdata
+        globalFilter: searchdata,
+        columnPinning: pinnedColumns 
         },
         onGlobalFilterChange: setSearchdata,
         
@@ -78,16 +122,16 @@ const App = () => {
     return (
         <div className="table-container">
             <div className="table-wrapper">
-                <span>
-                    <label>Filter:</label>
-                    <input
-                        type="text"
-                        placeholder="Filter by name..."
-                        value={searchdata}
-                        onChange={(e) => setSearchdata(e.target.value)}
-                        style={{ marginBottom: "10px", padding: "5px", border: 'none', borderRadius: '5px' }}
-                    />
-                </span>
+            <div className="filter-container">
+                <label className="filter-label">Filter:</label>
+                <input
+                    type="text"
+                    placeholder="Filter by name..."
+                    value={searchdata}
+                    onChange={(e) => setSearchdata(e.target.value)}
+                    className="filter-input"
+                />
+            </div>
                 <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                     <SortableContext items={columnOrder}>
                         <table className="custom-table">

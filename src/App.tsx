@@ -2,13 +2,15 @@ import { useState, useMemo } from "react";
 import { flexRender, getCoreRowModel, createColumnHelper, useReactTable, getFilteredRowModel } from "@tanstack/react-table";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
-import DraggableColumnHeader from "./DraggableColumnHeader"; // Ensure this component is correctly defined
-import datas from "../db.json"; // Adjust path as needed
+import DraggableColumnHeader from "./DraggableColumnHeader"; 
+import datas from "../db.json"; 
 import "./index.css";
 
-const columnHelper = createColumnHelper();
+
+
 
 const App = () => {
+    const columnHelper = createColumnHelper();
     const allKeys = [...new Set(datas.flatMap(item => Object.keys(item)))];
     const [searchdata, setSearchdata] = useState('');
     const [cell, setCell] = useState({ rowIndex: null, columnId: null });
@@ -120,49 +122,50 @@ const App = () => {
     });
 
     return (
-        <div className="table-container">
-            <div className="table-wrapper">
-            <div className="filter-container">
-                <label className="filter-label">Filter:</label>
-                <input
-                    type="text"
-                    placeholder="Filter by name..."
-                    value={searchdata}
-                    onChange={(e) => setSearchdata(e.target.value)}
-                    className="filter-input"
-                />
+            <div className="table-container">
+                <h1>GRID TABLE</h1>
+                    <div className="filter-container">
+                        <label className="filter-label">Filter:</label>
+                        <input
+                            type="text"
+                            placeholder="Filter by name..."
+                            value={searchdata}
+                            onChange={(e) => setSearchdata(e.target.value)}
+                            className="filter-input"
+                        />
+                    </div>
+                <div className="table-wrapper">
+                    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                        <SortableContext items={columnOrder}>
+                            <table className="custom-table">
+                                <thead>
+                                    {table.getHeaderGroups().map((header) => (
+                                        <tr key={header.id}>
+                                            {header.headers.map((head) => (
+                                                <th key={head.id}>
+                                                    {flexRender(head.column.columnDef.header, head.getContext())}
+                                                </th>
+                                            ))}
+                                        </tr>
+                                    ))}
+                                </thead>
+                                <tbody>
+                                    {table.getRowModel().rows.map((bodys) => (
+                                        <tr key={bodys.id}>
+                                            {bodys.getVisibleCells().map((cell) => (
+                                                <td key={cell.id}>
+                                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                                </td>
+                                            ))}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </SortableContext>
+                    </DndContext>
+                </div>
             </div>
-                <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-                    <SortableContext items={columnOrder}>
-                        <table className="custom-table">
-                            <thead>
-                                {table.getHeaderGroups().map((header) => (
-                                    <tr key={header.id}>
-                                        {header.headers.map((head) => (
-                                            <th key={head.id}>
-                                                {flexRender(head.column.columnDef.header, head.getContext())}
-                                            </th>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </thead>
-                            <tbody>
-                                {table.getRowModel().rows.map((bodys) => (
-                                    <tr key={bodys.id}>
-                                        {bodys.getVisibleCells().map((cell) => (
-                                            <td key={cell.id}>
-                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                            </td>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </SortableContext>
-                </DndContext>
-            </div>
-        </div>
-    );
-};
+        );
+    };
 
 export default App;

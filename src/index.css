@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* Table Container */
+.table-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #181818; /* Dark AG Grid background */
+    padding: 20px;
+}
+
+/* Table Wrapper */
+.table-wrapper {
+    width: 90%;
+    max-height: 75vh;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Table */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+    font-family: "Arial", sans-serif;
+}
+
+/* Table Header */
+.custom-table thead {
+    background: linear-gradient(45deg, #333, #444);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.custom-table th {
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 2px solid #555;
+}
+
+/* Table Rows */
+.custom-table tbody tr {
+    background-color: #252525;
+    transition: background 0.3s ease;
+}
+
+/* Striped Rows */
+.custom-table tbody tr:nth-child(even) {
+    background-color: #1e1e1e;
+}
+
+/* Hover Effect */
+.custom-table tbody tr:hover {
+    background-color: #373737;
+    cursor: pointer;
+}
+
+/* Table Cells */
+.custom-table td {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #444;
+}
+
+/* Scrollable Table */
+.table-wrapper {
+    overflow-y: auto;
+    max-height: 500px;
+}
+
+/* AG Grid-style Borders */
+.custom-table th, .custom-table td {
+    border-right: 1px solid #444;
+}
+
+/* Remove Right Border on Last Column */
+.custom-table th:last-child, .custom-table td:last-child {
+    border-right: none;
+}

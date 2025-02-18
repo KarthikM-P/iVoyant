@@ -1,7 +1,9 @@
 import { flexRender } from "@tanstack/react-table";
+// import { TableHeader } from "./TableHeader";
+import { TableRow } from "./TableRow";
 
-const TableHeader = ({ table }) => {
-    return (
+export const Table = ({ table, onEdit }) => (
+    <table className="custom-table">
         <thead>
             {table.getHeaderGroups().map((header) => (
                 <tr key={header.id}>
@@ -13,7 +15,10 @@ const TableHeader = ({ table }) => {
                 </tr>
             ))}
         </thead>
-    );
-};
-
-export default TableHeader;
+        <tbody>
+            {table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id} row={row} onEdit={onEdit} />
+            ))}
+        </tbody>
+    </table>
+);

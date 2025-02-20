@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import {  getCoreRowModel, createColumnHelper, useReactTable, getFilteredRowModel } from "@tanstack/react-table";
+import { getCoreRowModel, createColumnHelper, useReactTable, getFilteredRowModel } from "@tanstack/react-table";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { TableTemplate } from "./Templates/TableTemplate";
@@ -13,7 +13,7 @@ export const TablePage = () => {
     const allKeys = [...new Set(datas.flatMap((item) => Object.keys(item)))];
     const [searchdata, setSearchdata] = useState("");
     const [cell, setCell] = useState({ rowIndex: null, columnId: null });
-    const [data, setData] = useState(datas);
+    const [data, setData] = useState(datas.map((item, index) => ({ ...item, id: index.toString() }))); // Add unique IDs
     const [columnOrder, setColumnOrder] = useState(allKeys);
     const [pinnedColumns, setPinnedColumns] = useState({ left: [], right: [] });
     const [openDropdownId, setOpenDropdownId] = useState();
@@ -67,17 +67,28 @@ export const TablePage = () => {
         const { active, over } = event;
         if (!over || active.id === over.id) return;
 
-        const oldIndex = columnOrder.findIndex((col) => col === active.id);
-        const newIndex = columnOrder.findIndex((col) => col === over.id);
-
-        if (oldIndex !== -1 && newIndex !== -1) {
-            setColumnOrder(arrayMove(columnOrder, oldIndex, newIndex));
+    
+        
+        const oldColIndex = columnOrder.findIndex((col) => col === active.id);
+        const newColIndex = columnOrder.findIndex((col) => col === over.id);
+    
+        if (oldColIndex !== -1 && newColIndex !== -1) {
+            setColumnOrder(arrayMove(columnOrder, oldColIndex, newColIndex));
         }
+    };
+
+    const handleRowReorder = (oldIndex, newIndex) => {
+        setData((prevData) => {
+            const updatedData = [...prevData];
+            const [movedRow] = updatedData.splice(oldIndex, 1); 
+            updatedData.splice(newIndex, 0, movedRow); 
+            return updatedData;
+        });
     };
 
     const pinColumn = (columnId, position) => {
         setPinnedColumns((prev) => {
-            let newPinned = { left: [...prev.left], right: [...prev.right] };
+            const newPinned = { left: [...prev.left], right: [...prev.right] };
             newPinned.left = newPinned.left.filter((col) => col !== columnId);
             newPinned.right = newPinned.right.filter((col) => col !== columnId);
             if (position === "left") {
@@ -109,6 +120,7 @@ export const TablePage = () => {
                     searchdata={searchdata}
                     onSearchChange={(e) => setSearchdata(e.target.value)}
                     onEdit={(cell) => setCell({ rowIndex: cell.row.index, columnId: cell.column.id })}
+                    onRowReorder={handleRowReorder}
                 />
             </SortableContext>
         </DndContext>

@@ -21,27 +21,30 @@ export const TablePage = () => {
  
         
     const handleFileUpload = (e) => {
-        console.log("File upload triggered", e.target.files);
-        
+        const file = e.target.files[0];
+        if (!file) return;
+    
         const reader = new FileReader();
+    
         reader.onload = (event) => {
-            const data = event.target.result;
-            const workbook = xlsx.read(data, { type: "binary" });
-            const sheetName = workbook.SheetNames[0];
-            const sheet = workbook.Sheets[sheetName];
-            const jsonData = xlsx.utils.sheet_to_json(sheet);
-            
-
-            
-            if (jsonData.length > 0) {
-                setDatas(jsonData);
+            if (file.type === "application/json") {
+                    setDatas(JSON.parse(event.target.result));
+                
+            } else {
+              
+                const workbook = xlsx.read(event.target.result, { type: "binary" });
+                const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                setDatas(xlsx.utils.sheet_to_json(sheet));
             }
         };
-        
-        if (e.target.files.length > 0) {
-            reader.readAsBinaryString(e.target.files[0]);
+    
+        if (file.type === "application/json") {
+            reader.readAsText(file);
+        } else {
+            reader.readAsBinaryString(file);
         }
     };
+    
 
     
     useEffect(() => {
@@ -49,13 +52,30 @@ export const TablePage = () => {
     }, [datas]);  
 
 
-    const exportToExcel = () => {
-        const ws = xlsx.utils.json_to_sheet(savedData);  
-        const wb = xlsx.utils.book_new(); 
-        xlsx.utils.book_append_sheet(wb, ws, "Sheet1");  
-        
-        xlsx.writeFile(wb, "table_data.xlsx");
+    const exportToData = (format) => {
+        if (datas.length === 0) {
+            alert("No data to export!");
+            return;
+        }
+    
+        if (format === "json") {
+            // Export as JSON
+            const jsonData = JSON.stringify(datas, null, 2);
+            const blob = new Blob([jsonData], { type: "application/json" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "table_data.json";
+            link.click();
+            
+        } else if (format === "excel") {
+            // Export as Excel
+            const ws = xlsx.utils.json_to_sheet(datas);
+            const wb = xlsx.utils.book_new();
+            xlsx.utils.book_append_sheet(wb, ws, "Sheet1");
+            xlsx.writeFile(wb, "table_data.xlsx");
+        }
     };
+    
     
     const columns = useMemo(
         () =>
@@ -168,7 +188,7 @@ export const TablePage = () => {
                     onEdit={(cell) => setCell({ rowIndex: cell.row.index, columnId: cell.column.id })}
                     onRowReorder={handleRowReorder}
                     handleFileUpload={handleFileUpload}
-                    exportToExcel = {exportToExcel}
+                    exportToData = {exportToData}
                     
                 />
             </SortableContext>

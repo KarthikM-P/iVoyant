@@ -45,7 +45,7 @@ export const TablePage = () => {
                 <TableTemplate
                     table={table}
                     searchdata={searchdata}
-                    onSearchChange={(e) => setSearchdata(e.target.value)}
+                    onSearchChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchdata(e.target.value)}
                     onEdit={(cell) => setCell({ rowIndex: cell.row.index, columnId: cell.column.id })}
                     onRowReorder={handleRowReorder}
                     handleFileUpload={handleFileUpload}

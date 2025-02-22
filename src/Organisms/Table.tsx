@@ -1,17 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { flexRender } from "@tanstack/react-table";
 import { TableRow } from "./TableRow";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 
-export const Table = ({ table, onEdit, onRowReorder }) => {
+interface TableProps {
+    table: any;
+    onEdit: any;
+    onRowReorder: any;
+}
+export const Table = ({ table, onEdit, onRowReorder }: TableProps) => {
     const rows = table.getRowModel().rows;
 
-    const handleRowDragEnd = (event) => {
+    const handleRowDragEnd = (event: { active: any; over: any; }) => {
         const { active, over } = event;
         if (!over || active.id === over.id) return;
 
-        const oldIndex = rows.findIndex((row) => row.id === active.id);
-        const newIndex = rows.findIndex((row) => row.id === over.id);
+        const oldIndex = rows.findIndex((row: { id: any; }) => row.id === active.id);
+        const newIndex = rows.findIndex((row: { id: any; }) => row.id === over.id);
 
         if (oldIndex !== -1 && newIndex !== -1) {
             onRowReorder(oldIndex, newIndex);
@@ -33,9 +39,9 @@ export const Table = ({ table, onEdit, onRowReorder }) => {
                 ))}
             </thead>
             <DndContext collisionDetection={closestCenter} onDragEnd={handleRowDragEnd}>
-                <SortableContext items={rows.map((row) => row.id)}>
+                <SortableContext items={rows.map((row: { id: any; }) => row.id)}>
                     <tbody>
-                        {rows.map((row) => (
+                        {rows.map((row: unknown) => (
                             <TableRow key={row.id} row={row} onEdit={onEdit} />
                         ))}
                     </tbody>

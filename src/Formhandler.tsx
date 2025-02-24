@@ -1,15 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { inputName, inputEmail, inputPassword } from './Redux/inputSlicer';
+import { RootState } from './Redux/reduxStore';
 const Formhandler = () => {
     const dispatch =  useDispatch();
-    const data = useSelector(state => state.inputsss);
+    const data = useSelector((state:RootState) => state.inputsss);
     console.log(data.name);
   return (
     <div>
         <form >
-            <input type="text" value={data.inputName} onChange={(e)=>dispatch(inputName(e.target.value))} />
-            <input type="text" value={data.inputEmail} onChange={(e)=>dispatch(inputEmail(e.target.value))} />
-            <input type="text" value={data.inputPassword} onChange={(e)=>dispatch(inputPassword(e.target.value))} />
+            <input type="text" value={data.name} onChange={(e)=>dispatch(inputName(e.target.value))} />
+            <input type="text" value={data.email} onChange={(e)=>dispatch(inputEmail(e.target.value))} />
+            <input type="text" value={data.password} onChange={(e)=>dispatch(inputPassword(e.target.value))} />
             <button onClick={()=>{
                 dispatch(inputName('')); 
                 dispatch(inputEmail(''));

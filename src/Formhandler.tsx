@@ -4,18 +4,18 @@ import { RootState } from './Redux/reduxStore';
 const Formhandler = () => {
     const dispatch =  useDispatch();
     const data = useSelector((state:RootState) => state.inputsss);
-    console.log(data.name);
+    function handles(){
+      dispatch(inputName('')); 
+      dispatch(inputEmail(''));
+      dispatch(inputPassword(''));
+    }
   return (
     <div>
         <form >
             <input type="text" value={data.name} onChange={(e)=>dispatch(inputName(e.target.value))} />
             <input type="text" value={data.email} onChange={(e)=>dispatch(inputEmail(e.target.value))} />
             <input type="text" value={data.password} onChange={(e)=>dispatch(inputPassword(e.target.value))} />
-            <button onClick={()=>{
-                dispatch(inputName('')); 
-                dispatch(inputEmail(''));
-                dispatch(inputPassword(''));
-            }}> submit</button>
+            <button onClick={()=>{handles}}> submit</button>
 
         </form>
 

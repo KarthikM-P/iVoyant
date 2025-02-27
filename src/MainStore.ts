@@ -6,6 +6,7 @@ export const API = createApi({
     endpoints:((builder)=>({
         getTasks:builder.query({
             query:()=> "/tasks",
+            transformResponse:(tasks)=> tasks.reverse(),
             providesTags:['tasks']
         }),
     
@@ -26,7 +27,7 @@ export const API = createApi({
             invalidatesTags:['tasks']
         }),
         deleteTask:builder.mutation({
-            query:({id})=>({
+            query:(id)=>({
                 url:`/tasks/${id}`,
                 method:"DELETE"
                 

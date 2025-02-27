@@ -1,31 +1,60 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { inputName, inputEmail, inputPassword } from './Redux/inputSlicer';
+import { useDispatch, useSelector } from 'react-redux';
+import {  inputIcon } from './Redux/inputSlicer';
 import { RootState } from './Redux/reduxStore';
-const Formhandler = () => {
-    const dispatch =  useDispatch();
-    const data = useSelector((state:RootState) => state.inputsss);
-    function handles(){
-      dispatch(inputName('')); 
-      dispatch(inputEmail(''));
-      dispatch(inputPassword(''));
-    }
-  return (
-    <div>
-        <form >
-            <input type="text" value={data.name} onChange={(e)=>dispatch(inputName(e.target.value))} />
-            <input type="text" value={data.email} onChange={(e)=>dispatch(inputEmail(e.target.value))} />
-            <input type="text" value={data.password} onChange={(e)=>dispatch(inputPassword(e.target.value))} />
-            <button onClick={()=>{handles}}> submit</button>
+import { useState } from 'react';
 
-        </form>
-
-        <h1>todolist</h1>
-        <p><strong>user:</strong>{data.name}</p>
-        <p><strong>email:</strong>{data.email}</p>
-        <p><strong>password:</strong>{data.password}</p>
-    </div>
+const FormHandler = () => {
+    const dispatch = useDispatch();
+    const data = useSelector((state: RootState) => state.inputsss);
     
-  )
-}
 
-export default Formhandler
+    
+    const svgsets = [
+        (<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#6C707E" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 15H16V22H17" stroke="#6C707E" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15.75 11.5C16.3023 11.5 16.75 11.0523 16.75 10.5C16.75 9.94772 16.3023 9.5 15.75 9.5C15.1977 9.5 14.75 9.94772 14.75 10.5C14.75 11.0523 15.1977 11.5 15.75 11.5Z" fill="#6C707E"/>
+        </svg>),
+        (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="12" fill="#757880"/>
+            <path d="M16.7371 15.4398C16.4792 14.8289 16.1049 14.274 15.6351 13.8061C15.1668 13.3367 14.612 12.9625 14.0014 12.7041C13.9959 12.7014 13.9904 12.7 13.9849 12.6973C14.8367 12.082 15.3904 11.0799 15.3904 9.94922C15.3904 8.07617 13.8728 6.55859 11.9998 6.55859C10.1267 6.55859 8.60917 8.07617 8.60917 9.94922C8.60917 11.0799 9.16288 12.082 10.0146 12.6986C10.0092 12.7014 10.0037 12.7027 9.99823 12.7055C9.38573 12.9639 8.83612 13.3344 8.36444 13.8074C7.8951 14.2758 7.52089 14.8306 7.26249 15.4412C7.00863 16.039 6.87172 16.6799 6.85917 17.3293C6.8588 17.3439 6.86136 17.3584 6.86669 17.372C6.87203 17.3856 6.88002 17.398 6.89022 17.4084C6.90041 17.4189 6.91259 17.4272 6.92604 17.4328C6.93949 17.4385 6.95394 17.4414 6.96854 17.4414H7.78885C7.84901 17.4414 7.89686 17.3936 7.89823 17.3348C7.92557 16.2793 8.3494 15.2908 9.09862 14.5416C9.87381 13.7664 10.9033 13.3398 11.9998 13.3398C13.0963 13.3398 14.1258 13.7664 14.901 14.5416C15.6502 15.2908 16.074 16.2793 16.1014 17.3348C16.1027 17.3949 16.1506 17.4414 16.2107 17.4414H17.031C17.0456 17.4414 17.0601 17.4385 17.0735 17.4328C17.087 17.4272 17.0992 17.4189 17.1094 17.4084C17.1196 17.398 17.1276 17.3856 17.1329 17.372C17.1382 17.3584 17.1408 17.3439 17.1404 17.3293C17.1267 16.6758 16.9914 16.04 16.7371 15.4398ZM11.9998 12.3008C11.3723 12.3008 10.7816 12.0561 10.3373 11.6117C9.89295 11.1674 9.64823 10.5768 9.64823 9.94922C9.64823 9.32168 9.89295 8.73105 10.3373 8.28672C10.7816 7.84238 11.3723 7.59766 11.9998 7.59766C12.6273 7.59766 13.218 7.84238 13.6623 8.28672C14.1066 8.73105 14.3514 9.32168 14.3514 9.94922C14.3514 10.5768 14.1066 11.1674 13.6623 11.6117C13.218 12.0561 12.6273 12.3008 11.9998 12.3008Z" fill="white"/>
+        </svg>)
+    ];
+    const [newsvg, setnewsvg] = useState(1)
+    
+    
+    function handler(){
+        setnewsvg(newsvg => newsvg === 0? 1:0);
+        dispatch(inputIcon(svgsets[newsvg]))
+              
+    }
+    console.log(svgsets[newsvg]);
+    
+    return (
+        <div>
+            <form onSubmit={(e) => e.preventDefault()}>
+
+            
+                <button type="button" onClick={handler}>Change SVG</button>
+
+            </form>
+
+
+
+
+            <h1>Icon</h1>
+            
+            {data.icon}
+
+
+
+           
+        </div>
+
+
+
+    );
+};
+
+export default FormHandler;
+-

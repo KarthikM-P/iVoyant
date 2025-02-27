@@ -8,6 +8,7 @@ export const inputs = createSlice({
         name: '',
         email: '',
         password: '',
+        icon:null
     },
     reducers: {
         inputName: (state, action) => {
@@ -18,10 +19,14 @@ export const inputs = createSlice({
         },
         inputPassword: (state, action) => {
             state.password = action.payload
+        },
+        inputIcon:(state, action)=>{
+            state.icon = action.payload
         }
+
     }
 });
 
-export const {inputName, inputEmail, inputPassword} = inputs.actions;
+export const {inputName, inputEmail, inputPassword, inputIcon} = inputs.actions;
 
 export default inputs.reducer

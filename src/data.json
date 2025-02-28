@@ -1,0 +1,122 @@
+[
+    {
+      "id": 1,
+      "name": "Apple iPhone 13",
+      "category": "Electronics",
+      "rating": 4,
+      "price": 999.99,
+      "description": "The latest iPhone from Apple, with a powerful A15 Bionic chip and a stunning 6.1-inch display.",
+      "brand": "Apple",
+      "stock": 50,
+      "images": [
+        "https://example.com/iphone13-image1.jpg",
+        "https://example.com/iphone13-image2.jpg"
+      ],
+      "reviews": [
+        {
+          "rating": 5,
+          "review": "Best phone I've ever owned! The camera is amazing and the battery life is incredible."
+        },
+        {
+          "rating": 4,
+          "review": "Great phone, but the price is a bit steep. Still, it's worth it for the quality and performance."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Samsung Galaxy S22",
+      "category": "Electronics",
+      "rating": 2,
+      "price": 899.99,
+      "description": "The latest flagship phone from Samsung, with a large 6.2-inch display and a long-lasting battery.",
+      "brand": "Samsung",
+      "stock": 30,
+      "images": [
+        "https://example.com/galaxys22-image1.jpg",
+        "https://example.com/galaxys22-image2.jpg"
+      ],
+      "reviews": [
+        {
+          "rating": 5,
+          "review": "Love this phone! The screen is huge and the camera takes amazing photos."
+        },
+        {
+          "rating": 3,
+          "review": "Good phone, but the software can be a bit buggy at times."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Nike Air Max 270",
+      "category": "Shoes",
+      "rating": 1,
+      "price": 129.99,
+      "description": "The latest Air Max shoe from Nike, with a full-length air unit for maximum comfort and style.",
+      "brand": "Nike",
+      "stock": 20,
+      "images": [
+        "https://example.com/airmax270-image1.jpg",
+        "https://example.com/airmax270-image2.jpg"
+      ],
+      "reviews": [
+        {
+          "rating": 5,
+          "review": "Best shoes I've ever owned! So comfortable and stylish."
+        },
+        {
+          "rating": 4,
+          "review": "Great shoes, but the price is a bit high. Still, they're worth it for the quality."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Sony PlayStation 5",
+      "category": "Gaming",
+      "rating": 5,
+      "price": 499.99,
+      "description": "The latest gaming console from Sony, with a powerful AMD Ryzen CPU and a stunning 8K display.",
+      "brand": "Sony",
+      "stock": 10,
+      "images": [
+        "https://example.com/ps5-image1.jpg",
+        "https://example.com/ps5-image2.jpg"
+      ],
+      "reviews": [
+        {
+          "rating": 5,
+          "review": "Best gaming console I've ever owned! The graphics are insane and the controller is so comfortable."
+        },
+        {
+          "rating": 4,
+          "review": "Great console, but the price is a bit steep. Still, it's worth it for the quality and performance."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Canon EOS 80D",
+      "category": "Electronics",
+      "rating": 3,
+      "price": 999.99,
+      "description": "A high-end DSLR camera from Canon, with a 24.2MP sensor and 4K video recording.",
+      "brand": "Canon",
+      "stock": 15,
+      "images": [
+        "https://example.com/eos80d-image1.jpg",
+        "https://example.com/eos80d-image2.jpg"
+      ],
+      "reviews": [
+        {
+          "rating": 5,
+          "review": "Best camera I've ever owned! The image quality is incredible and the autofocus is so fast."
+        },
+        {
+          "rating": 4,
+          "review": "Great camera, but the price is a bit high. Still, it's worth it for the quality and features."
+        }
+      ]
+    }
+]  

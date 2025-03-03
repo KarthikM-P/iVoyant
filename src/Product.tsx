@@ -9,7 +9,7 @@ const Product = () => {
   return (
     <div>
         <select name="category" onChange={(e) => e.target.value === 'all'? setProductData(data): setProductData(data.filter((product) => product.category === e.target.value))}>
-            <option value='all'>none</option>
+            <option value='all'>all</option>
             <option value="Electronics">Electronics</option>
             <option value="Shoes">Shoes</option>
             <option value="Gaming">gaming</option>

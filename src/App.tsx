@@ -1,8 +1,14 @@
-import React from 'react'
 
+import Slides from './Slides'
+import { SLIDES_DATA } from "./constants";
+import './App.css';
 const App = () => {
   return (
-    <div>App</div>
+   
+      <div className="App">
+        <Slides slides={SLIDES_DATA} />
+      </div>
+    
   )
 }
 

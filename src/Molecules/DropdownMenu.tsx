@@ -4,11 +4,15 @@ interface DropdownMenuProps {
     onPinLeft: () => void;
     onPinRight: () => void;
     onUnpin: () => void;
+    onAccending: () => void;
+    onDecending: () => void;
 }
-export const DropdownMenu = ({ onPinLeft, onPinRight, onUnpin }: DropdownMenuProps) => (
+export const DropdownMenu = ({ onPinLeft, onPinRight, onUnpin, onAccending, onDecending }: DropdownMenuProps) => (
     <div className="dropdown-menu">
-        <Button onClick={onPinLeft}>⬅️</Button>
-        <Button onClick={onPinRight}>➡️</Button>
-        <Button onClick={onUnpin}>❌</Button>
+        <Button onClick={onAccending}>⬆️ Accending</Button>
+        <Button onClick={onDecending}>⬇️ Decending</Button>
+        <Button onClick={onPinLeft}>⬅️ Pin Left</Button>
+        <Button onClick={onPinRight}>➡️ Pin Right</Button>
+        <Button onClick={onUnpin}>❌ Reset</Button>
     </div>
 );

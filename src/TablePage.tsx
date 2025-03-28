@@ -9,19 +9,7 @@ import useTable from "./useTable";
 
 export const TablePage = () => {
     
-    const {
-        datas,
-        searchdata,
-        setSearchdata,
-        setCell,
-        columns,
-        columnOrder,
-        pinnedColumns,
-        handleFileUpload,
-        exportToData,
-        handleRowReorder,
-        handleDragEnd
-    } = useTable();
+    const { datas, searchdata, setSearchdata, setCell, columns, columnOrder, pinnedColumns, handleFileUpload, exportToData, handleRowReorder, handleDragEnd} = useTable();
  
         
     
@@ -46,7 +34,7 @@ export const TablePage = () => {
                     table={table}
                     searchdata={searchdata}
                     onSearchChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchdata(e.target.value)}
-                    onEdit={(cell) => setCell({ rowIndex: cell.row.index, columnId: cell.column.id })}
+                    onEdit={(cell: { row: { index: number; }; column: { id: string; }; }) => setCell({ rowIndex: cell.row.index, columnId: cell.column.id })}
                     onRowReorder={handleRowReorder}
                     handleFileUpload={handleFileUpload}
                     exportToData = {exportToData}

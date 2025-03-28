@@ -1,6 +1,5 @@
+@import "tailwindcss";
 *{
-    margin: 0;
-    padding: 0;
     font-family: "Arial", sans-serif;
 }
 
@@ -12,11 +11,11 @@
     flex-direction: column;
     height: 100vh;
     width: 100%;
-    background-color: #181818; /* Dark AG Grid background */
     padding: 20px;
     gap: 20px;
+    
 }
-
+    
 /* index.css */
 .draggable-header {
     display: flex;
@@ -67,6 +66,7 @@
 .custom-table {
     width: max-content;
     min-width: 100%;
+    
 }
 
 .custom-table th,
